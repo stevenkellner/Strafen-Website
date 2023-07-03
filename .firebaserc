@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "strafen-project": {
+      "hosting": {
+        "strafen-website": [
+          "strafen-project"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "strafen-project"
+  }
+}
