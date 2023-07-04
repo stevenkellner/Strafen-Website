@@ -6,13 +6,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './pages/main/main.component';
 import { environment } from '../environments/environment';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
-import { provideStorage, getStorage } from '@angular/fire/storage';
 
-import { USE_DEVICE_LANGUAGE, PERSISTENCE } from '@angular/fire/compat/auth'
+import { AngularFireModule } from '@angular/fire/compat';
+import { USE_DEVICE_LANGUAGE, PERSISTENCE, AngularFireAuthModule } from '@angular/fire/compat/auth'
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/compat/functions';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -23,15 +22,16 @@ import { USE_DEVICE_LANGUAGE, PERSISTENCE } from '@angular/fire/compat/auth'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFunctions(() => getFunctions(undefined, 'europe-west1')),
-    provideStorage(() => getStorage()),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireFunctionsModule,
+    AngularFireStorageModule
   ],
   providers: [
     { provide: USE_DEVICE_LANGUAGE, useValue: true },
-    { provide: PERSISTENCE, useValue: 'local' }
+    { provide: PERSISTENCE, useValue: 'local' },
+    { provide: REGION, useValue: 'europe-west1' }
   ],
   bootstrap: [AppComponent]
 })
