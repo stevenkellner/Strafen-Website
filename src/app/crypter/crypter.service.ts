@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { RandomBitIterator } from './random-bit-iterator';
-import { type FixedLength } from './fixed-length';
 import { BytesToBitIterator } from './bytes-to-bit-iterator';
 import { CombineIterator } from './combine-iterator';
 import { bitIteratorToBytes, randomBytes, xor, addPadding, removePadding, unishortBytes, unishortString } from './utils';
@@ -19,25 +18,25 @@ export class CrypterService {
   constructor() {}
 
   public encryptAes(bytes: Uint8Array): Uint8Array {
-      const encrypter = new CBCEncryptor(this.cryptionKeys.encryptionKey.value, this.cryptionKeys.initialisationVector.value);
+      const encrypter = new CBCEncryptor(this.cryptionKeys.encryptionKey, this.cryptionKeys.initialisationVector);
       return encrypter.encrypt(addPadding(bytes));
   }
 
   public decryptAes(bytes: Uint8Array): Uint8Array {
-      const decrypter = new CBCDecryptor(this.cryptionKeys.encryptionKey.value, this.cryptionKeys.initialisationVector.value);
+      const decrypter = new CBCDecryptor(this.cryptionKeys.encryptionKey, this.cryptionKeys.initialisationVector);
       return removePadding(decrypter.decrypt(bytes));
   }
 
   public encryptVernamCipher(bytes: Uint8Array): Uint8Array {
       const key = randomBytes(32);
-      const randomBitIterator = new RandomBitIterator(Uint8Array.from([...key, ...this.cryptionKeys.vernamKey.value]));
+      const randomBitIterator = new RandomBitIterator(Uint8Array.from([...key, ...this.cryptionKeys.vernamKey]));
       const bytesToBitIterator = new BytesToBitIterator(bytes);
       const combineIterator = new CombineIterator(randomBitIterator, bytesToBitIterator, xor);
       return Uint8Array.from([...key, ...bitIteratorToBytes(combineIterator)]);
   }
 
   public decryptVernamCipher(bytes: Uint8Array): Uint8Array {
-      const randomBitIterator = new RandomBitIterator(Uint8Array.from([...bytes.slice(0, 32), ...this.cryptionKeys.vernamKey.value]));
+      const randomBitIterator = new RandomBitIterator(Uint8Array.from([...bytes.slice(0, 32), ...this.cryptionKeys.vernamKey]));
       const bytesToBitIterator = new BytesToBitIterator(bytes.slice(32));
       const combineIterator = new CombineIterator(randomBitIterator, bytesToBitIterator, xor);
       return bitIteratorToBytes(combineIterator);
@@ -74,9 +73,9 @@ export class CrypterService {
 
 export namespace CrypterService {
   export interface Keys {
-      encryptionKey: FixedLength<Uint8Array, 32>;
-      initialisationVector: FixedLength<Uint8Array, 16>;
-      vernamKey: FixedLength<Uint8Array, 32>;
+      encryptionKey: Uint8Array;
+      initialisationVector: Uint8Array;
+      vernamKey: Uint8Array;
   }
 
   export function sha512(value: string, key?: string): string {

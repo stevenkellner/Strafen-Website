@@ -55,6 +55,7 @@ describe('FunctionCallerService', () => {
   afterEach(async () => {
     const deleteAllDataFunction = new DeleteAllDataFunction();
     await functionCaller.call(deleteAllDataFunction);
+    await firebaseAuthentication.signOut();
   });
 
   it('should be created', () => {
