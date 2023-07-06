@@ -6,7 +6,7 @@ import { PseudoRandom } from './pseudo-random';
 import { BytesToBitIterator } from './bytes-to-bit-iterator';
 import { RandomBitIterator } from './random-bit-iterator';
 import { CombineIterator } from './combine-iterator';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { FixedLength } from './fixed-length';
 
 function toArray<T>(iterator: Iterator<T>): T[] {

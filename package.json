@@ -23,6 +23,7 @@
     "@angular/router": "^16.1.0",
     "aes-ts": "^0.0.0-alpha.0",
     "js-base64": "^3.7.5",
+    "ngx-cookie-service": "^16.0.0",
     "rxjs": "~7.8.0",
     "sha512-crypt-ts": "^0.1.27",
     "tslib": "^2.3.0",

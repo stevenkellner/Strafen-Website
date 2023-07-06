@@ -1,6 +1,6 @@
 import { FirebaseOptions } from '@angular/fire/app';
-import { CrypterService } from 'src/app/crypter';
-import { DatabaseType, VerboseType } from 'src/app/types';
+import { CrypterService } from '../app/crypter';
+import { DatabaseType, VerboseType } from '../app/types';
 
 export type IEnvironment = {
   firebase: FirebaseOptions;

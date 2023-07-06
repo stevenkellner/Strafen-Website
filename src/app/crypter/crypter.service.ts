@@ -7,7 +7,7 @@ import { bitIteratorToBytes, randomBytes, xor, addPadding, removePadding, unisho
 import { CBCEncryptor, CBCDecryptor } from 'aes-ts';
 import { sha512 as crypt_sha512 } from 'sha512-crypt-ts';
 import { Base64 } from 'js-base64';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

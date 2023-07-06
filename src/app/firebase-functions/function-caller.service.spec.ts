@@ -5,7 +5,7 @@ import { ClubNewFunction, ClubNewTestFunction, DeleteAllDataFunction, FineAddFun
 import { Guid } from '../types/guid';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database'
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { UserAuthenticationType } from '../types/user-authentication-type';
 import { CrypterService } from '../crypter';
 import { AngularFireFunctions, REGION } from '@angular/fire/compat/functions';
@@ -36,6 +36,8 @@ describe('FunctionCallerService', () => {
     });
     functionCaller = TestBed.inject(FunctionCallerService);
     crypter = TestBed.inject(CrypterService);
+    const deleteAllDataFunction = new DeleteAllDataFunction();
+    await functionCaller.call(deleteAllDataFunction);
     const clubNewTestFunction = new ClubNewTestFunction(clubId, 'default');
     await functionCaller.call(clubNewTestFunction);
     firebaseAuthentication = TestBed.inject(AngularFireAuth);
@@ -318,7 +320,8 @@ describe('FunctionCallerService', () => {
 
   it('invitation link create id', async () => {
     const invitationLinkCreateIdFunction = new InvitationLinkCreateIdFunction(clubId, new Guid('D1852AC0-A0E2-4091-AC7E-CB2C23F708D9'));
-    await functionCaller.call(invitationLinkCreateIdFunction);
+    const invitationLinkId = await functionCaller.call(invitationLinkCreateIdFunction);
+    expect(typeof invitationLinkId).toEqual('string');
   });
 
   it('invitation link withdraw', async () => {

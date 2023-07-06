@@ -9,12 +9,12 @@ export class InvitationLinkGetPersonFunction implements FirebaseFunction<Invitat
   public readonly functionName: string = 'invitationLink-getPerson';
 
   public constructor(
-    private readonly invitationLink: string
+    private readonly invitationLinkId: string
   ) {}
 
   public get flattenParameters(): FunctionType.FlattenParameters<InvitationLinkGetPersonFunctionType> {
     return {
-      invitationLink: this.invitationLink
+      invitationLinkId: this.invitationLinkId
     };
   }
 
@@ -29,5 +29,5 @@ export class InvitationLinkGetPersonFunction implements FirebaseFunction<Invitat
 }
 
 export type InvitationLinkGetPersonFunctionType = FunctionType<{
-  invitationLink: string;
+  invitationLinkId: string;
 }, Omit<Person.Flatten, 'signInData' | 'isInvited'> & { club: ClubProperties.Flatten }, Omit<Person, 'signInData' | 'isInvited'> & { club: ClubProperties }>;

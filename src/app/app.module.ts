@@ -12,6 +12,7 @@ import { USE_DEVICE_LANGUAGE, PERSISTENCE, AngularFireAuthModule } from '@angula
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/compat/functions';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     AngularFireStorageModule
   ],
   providers: [
+    CookieService,
     { provide: USE_DEVICE_LANGUAGE, useValue: true },
     { provide: PERSISTENCE, useValue: 'local' },
     { provide: REGION, useValue: 'europe-west1' }

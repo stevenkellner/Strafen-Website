@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseFunction } from './firebase-function';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { CrypterService } from '../crypter';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { DatabaseType, VerboseType } from '../types';
 import { CallSecret } from './call-secret';
 import { lastValueFrom } from 'rxjs';
